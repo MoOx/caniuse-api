@@ -1,4 +1,8 @@
-# caniuse-api [![Build Status](https://travis-ci.org/Nyalab/caniuse-api.svg?branch=master)](https://travis-ci.org/Nyalab/caniuse-api) [![Build status](https://ci.appveyor.com/api/projects/status/6j3na522bv3bxfa5/branch/master?svg=true)](https://ci.appveyor.com/project/MoOx/caniuse-api/branch/master)
+# caniuse-api
+
+[![npm package version](https://img.shields.io/github/package-json/v/MoOx/caniuse-api) ![npm downloads](https://img.shields.io/npm/dm/caniuse-api)](https://www.npmjs.com/package/caniuse-api)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/MoOx/caniuse-api/test.yml)](https://github.com/MoOx/caniuse-api/actions)
+[![License](https://img.shields.io/github/license/MoOx/caniuse-api)](https://github.com/MoOx/caniuse-api)
 
 request the caniuse data to check browsers compatibilities
 
