@@ -13,12 +13,12 @@
 [![BlueSky Follow](https://img.shields.io/badge/BlueSky-%20?style=social&logo=bluesky)](https://bsky.app/profile/moox.io)
 [![X Follow](https://img.shields.io/twitter/follow/MoOx?style=social&label=)](https://x.com/MoOx)
 
-request the caniuse data to check browsers compatibilities
+> Request [caniuse](https://caniuse.com) data to check browsers compatibilities
 
 ## Installation
 
 ```console
-$ yarn add caniuse-api
+npm install caniuse-api
 ```
 
 ## Usage
@@ -161,7 +161,6 @@ _if you do not like the default browser scope, you can set it globally by using 
 ```js
 caniuse.setBrowserScope('> 5%, last 2 versions, Firefox ESR, Opera 12.1')
 ```
-
 
 ---
 
