@@ -46,18 +46,22 @@ function isSupported(feature, browsers) {
 
   const browserList = browserslist(browsers, {ignoreUnknownVersions: true})
 
-  if (browserList && browserList.length > 0) {
-    return browserList.map((browser) => {
-      return browser.split(" ")
-    })
-    .every((browser) => {
-      return data.stats[browser[0]] &&
-        data.stats[browser[0]][browser[1]] &&
-        data.stats[browser[0]][browser[1]][0] === "y"
-    })
+  // No resolvable browser (e.g. an unknown version like `safari 12.0.2`) means
+  // we cannot confirm support, so we report it as unsupported rather than
+  // returning a vacuously-true `[].every(…)`. We deliberately do not throw here,
+  // matching the "do not throw on non existing data" behaviour expected elsewhere.
+  if (browserList.length === 0) {
+    return false
   }
 
-  throw new ReferenceError(`browser is an unknown version: ${browsers}`)
+  return browserList
+    .map((browser) => browser.split(" "))
+    .every((browser) => {
+      const stat = data.stats[browser[0]] && data.stats[browser[0]][browser[1]]
+      // caniuse marks full support as `y`, possibly followed by a note (`y #2`)
+      // or a flag (`y x`), so we only check the leading support indicator.
+      return Boolean(stat) && stat[0] === "y"
+    })
 }
 
 function find(query) {
