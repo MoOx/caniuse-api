@@ -1,3 +1,42 @@
+# 4.0.0 - 2026-06-02
+
+Two correctness fixes for `isSupported()`. Both change the boolean returned in
+some cases, hence the major bump.
+
+**The public API itself is unchanged.**
+
+- Fixed: features flagged with a caniuse note are no longer reported as
+  unsupported. caniuse stores full support as `y`, sometimes followed by a note
+  (`y #2`) or a flag (`y x`); we now only check the leading support indicator
+  instead of matching the whole value.
+  ([#82](https://github.com/MoOx/caniuse-api/issues/82)
+  via [#90](https://github.com/MoOx/caniuse-api/pull/90)
+  by [@underbyte](https://github.com/underbyte))
+  - e.g. `isSupported("es6", "chrome 74")` now returns `true` (was `false`).
+- Fixed: an unknown browser version is now reported as unsupported instead of
+  supported. A query resolving to no known browser (e.g. `safari 12.0.2`)
+  previously returned `true` because of a vacuously-true `[].every(…)`; it now
+  returns `false`. ([#83](https://github.com/MoOx/caniuse-api/issues/83)
+  via [#90](https://github.com/MoOx/caniuse-api/pull/90)
+  by [@underbyte](https://github.com/underbyte))
+  - e.g. `isSupported("intersectionobserver", "safari 12.0.2")` now returns
+    `false` (was `true`).
+  - `isSupported` still throws on a malformed query (`"not a real browser"`)
+    and on an unknown feature name, as before.
+- Added: built-in TypeScript type declarations. The package is now written in
+  TypeScript and ships its own `.d.ts`, so `@types/caniuse-api` is no longer
+  needed.
+  By [@MoOx](https://github.com/MoOx). 
+- Changed: internal rewrite, no runtime behaviour change. The previous build
+  step was replaced by `tsc` (sources run natively under modern Node and are
+  compiled to CommonJS for publishing), and the `lodash.memoize` / `lodash.uniq`
+  dependencies were inlined — two fewer runtime dependencies.
+  By [@MoOx](https://github.com/MoOx).
+
+> Note for tooling authors (e.g. cssnano / postcss-merge-rules): more features
+> are now considered supported than before, which can change generated output.
+> The new behaviour matches caniuse.com (dark green = supported).
+
 # 3.0.0 - 2018-07-10
 
 - Upgraded: browserslist
